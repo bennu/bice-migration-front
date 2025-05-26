@@ -8,7 +8,7 @@
   <img src="https://img.shields.io/badge/Emotion-DB7093?style=for-the-badge&logo=emotion&logoColor=white" alt="Emotion" />
 </div>
 
-<div align="center">
+<div align="start">
   <h3>🚀 Generador de Scripts SQL para Cargas Masivas</h3>
   <p>Herramienta profesional para la generación automática de scripts SQL optimizados para operaciones bancarias masivas</p>
 </div>
