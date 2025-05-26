@@ -1,6 +1,6 @@
 # SQL Generator - Bulk Loader
 
-<div align="center">
+<div align="start">
   <img src="https://img.shields.io/badge/Next.js-15.3.2-black?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" />
   <img src="https://img.shields.io/badge/React-19.0.0-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
   <img src="https://img.shields.io/badge/Material--UI-7.1.0-007FFF?style=for-the-badge&logo=mui&logoColor=white" alt="Material-UI" />
