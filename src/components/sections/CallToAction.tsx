@@ -1,19 +1,18 @@
-// components/sections/CallToAction.tsx
-import { Box, Typography, Button, Fade, alpha } from "@mui/material";
-import { GradientButton } from "@/components/common/GradientButton";
+import { Box, Typography, Fade } from '@mui/material'
+import { GradientButton } from '@/components/common/GradientButton'
 
 export default function CallToAction() {
   return (
-    <Box sx={{ mt: 12, textAlign: "center" }}>
+    <Box sx={{ mt: 12, textAlign: 'center' }}>
       <Fade in timeout={3000}>
         <Box>
           <Typography
             variant="h4"
             gutterBottom
             sx={{
-              background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
             }}
           >
             ¿Listo para modernizar tu infraestructura bancaria?
@@ -25,10 +24,10 @@ export default function CallToAction() {
           <Box
             sx={{
               mt: 4,
-              display: "flex",
+              display: 'flex',
               gap: 2,
-              justifyContent: "center",
-              flexWrap: "wrap",
+              justifyContent: 'center',
+              flexWrap: 'wrap'
             }}
           >
             <GradientButton size="large">Comenzar Ahora</GradientButton>
@@ -36,5 +35,5 @@ export default function CallToAction() {
         </Box>
       </Fade>
     </Box>
-  );
+  )
 }
