@@ -26,10 +26,12 @@ const envs: EnvsType = {
     BASE_URL_MIGRATION: 'https://api-bice.bennu.cl/'
   },
   stg: {
-    ...commonsEnvs
+    ...commonsEnvs,
+    BASE_URL_MIGRATION: 'https://api-bice.bennu.cl/'
   },
   pro: {
-    ...commonsEnvs
+    ...commonsEnvs,
+    BASE_URL_MIGRATION: 'https://api-bice.bennu.cl/'
   }
 }
 
