@@ -38,7 +38,7 @@
 
 ### Prerrequisitos
 
-- Node.js 18.17 o superior
+- Node.js 20 o superior
 - npm o yarn
 - Base de datos compatible (SQL Server, PostgreSQL, Oracle)
 
