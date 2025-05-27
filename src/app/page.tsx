@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { ThemeProvider, CssBaseline, Box, Container } from '@mui/material'
 import { theme } from '@/styles/theme'
 import Header from '@/components/layout/Header'

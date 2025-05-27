@@ -35,7 +35,6 @@ const pulse = keyframes`
 `
 
 export default function MigrationForm() {
-  const theme = useTheme()
   const {
     formData,
     loading,

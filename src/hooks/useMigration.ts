@@ -1,6 +1,6 @@
 // hooks/useMigration.ts
 import { useState } from 'react'
-import { migrationService, MigrationRequest, MigrationResponse } from '@/services/bulkLoadService'
+import { migrationService, MigrationRequest } from '@/services/bulkLoadService'
 
 export interface MigrationFormData {
   fundCounter: number
@@ -19,7 +19,7 @@ export const useMigration = () => {
     operationsMax: 30,
     operationDetailsMax: 8
   })
-  
+
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<MigrationResult | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -39,8 +39,10 @@ export const useMigration = () => {
       }
 
       // Llamar al servicio real
-      const response = await migrationService.generateMigrationScript(requestData)
-      
+      const response = await migrationService.generateMigrationScript(
+        requestData
+      )
+
       // Mapear la respuesta al formato esperado
       const migrationResult: MigrationResult = {
         uuid: response.uuid,
@@ -49,11 +51,14 @@ export const useMigration = () => {
 
       setResult(migrationResult)
       setShowNotification(true)
-      
-      console.log('Migration script generated successfully:', migrationResult.uuid)
-      
+
+      console.log(
+        'Migration script generated successfully:',
+        migrationResult.uuid
+      )
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Error desconocido'
+      const errorMessage =
+        err instanceof Error ? err.message : 'Error desconocido'
       setError(errorMessage)
       console.error('Migration generation failed:', errorMessage)
     } finally {
@@ -61,13 +66,15 @@ export const useMigration = () => {
     }
   }
 
-  const handleInputChange = (field: keyof MigrationFormData) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(e.target.value) || 0
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }))
-  }
+  const handleInputChange =
+    (field: keyof MigrationFormData) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = parseInt(e.target.value) || 0
+      setFormData((prev) => ({
+        ...prev,
+        [field]: value
+      }))
+    }
 
   const resetForm = () => {
     setFormData({
@@ -90,25 +97,25 @@ export const useMigration = () => {
       // Decodificar el base64 y crear un blob
       const binaryData = atob(result.scriptZip)
       const bytes = new Uint8Array(binaryData.length)
-      
+
       for (let i = 0; i < binaryData.length; i++) {
         bytes[i] = binaryData.charCodeAt(i)
       }
 
       const blob = new Blob([bytes], { type: 'application/zip' })
       const url = URL.createObjectURL(blob)
-      
+
       // Crear un enlace de descarga
       const link = document.createElement('a')
       link.href = url
       link.download = `migration-script-${result.uuid}.zip`
       document.body.appendChild(link)
       link.click()
-      
+
       // Limpiar
       document.body.removeChild(link)
       URL.revokeObjectURL(url)
-      
+
       console.log('Download initiated for migration script')
     } catch (err) {
       console.error('Error downloading script:', err)

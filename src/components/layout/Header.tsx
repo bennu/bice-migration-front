@@ -1,6 +1,6 @@
 // components/layout/Header.tsx
 import { Box, Container, Typography } from '@mui/material'
-import { Code, PlayArrow, TableChart } from '@mui/icons-material'
+import { Code, PlayArrow} from '@mui/icons-material'
 import { useState, useEffect } from 'react'
 
 export default function Header() {

@@ -13,7 +13,6 @@ export interface MigrationResponse {
   scriptZip: string
 }
 
-// URL base del API - ajustar según tu configuración
 const API_BASE_URL = process.env.BASE_URL_MIGRATION
 
 export const migrationService = {
@@ -23,7 +22,7 @@ export const migrationService = {
         headers: {
           'Content-Type': 'application/json'
         },
-        timeout: 30000 // 30 segundos timeout
+        timeout: 30000
       })
       
       return response.data
