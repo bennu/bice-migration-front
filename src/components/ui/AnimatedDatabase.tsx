@@ -1,4 +1,4 @@
-// components/ui/AnimatedDatabase.tsx
+'use client'
 import { useEffect, useState } from 'react'
 import { Box } from '@mui/material'
 import { Storage, DataObject } from '@mui/icons-material'

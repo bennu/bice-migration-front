@@ -1,4 +1,5 @@
 // components/layout/BackgroundElements.tsx
+'use client'
 import { Box } from "@mui/material";
 import { pulse } from "@/styles/animations";
 

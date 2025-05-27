@@ -1,3 +1,4 @@
+'use client'
 import { Box, Typography, Grid, CardContent, alpha } from '@mui/material'
 import { Storage, Code, CloudUpload, Assessment } from '@mui/icons-material'
 import { GlassCard } from '@/components/common/GlassCard'
