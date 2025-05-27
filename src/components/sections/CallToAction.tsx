@@ -15,11 +15,11 @@ export default function CallToAction() {
               WebkitTextFillColor: 'transparent'
             }}
           >
-            ¿Listo para modernizar tu infraestructura bancaria?
+            ¿Listo para modernizar tu infraestructura?
           </Typography>
-          <Typography variant="h6" color="text.secondary" paragraph>
+          <Typography variant="h6" color="text.secondary">
             Únete a las principales entidades financieras que confían en nuestra
-            solución
+            solución.
           </Typography>
           <Box
             sx={{

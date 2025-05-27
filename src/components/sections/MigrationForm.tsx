@@ -136,7 +136,8 @@ export default function MigrationForm() {
                 fontWeight="bold"
                 sx={{
                   background:
-                    'linear-gradient(135deg, #b3baff 0%, #667eea 100%)',
+                    'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text'

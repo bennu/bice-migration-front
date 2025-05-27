@@ -9,7 +9,7 @@ const features: Feature[] = [
     icon: <CloudUpload sx={{ fontSize: 36 }} />,
     title: 'Carga Masiva de Operaciones',
     description:
-      'Genera scripts SQL optimizados para la carga masiva de grandes volúmenes de operaciones bancarias en segundos.',
+      'Genera scripts SQL optimizados para la carga masiva de grandes volúmenes de operaciones en segundos.',
     color: '#667eea'
   },
   {

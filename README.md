@@ -10,7 +10,7 @@
 
 <div align="start">
   <h3>🚀 Generador de Scripts SQL para Cargas Masivas</h3>
-  <p>Herramienta profesional para la generación automática de scripts SQL optimizados para operaciones bancarias masivas</p>
+  <p>Herramienta profesional para la generación automática de scripts SQL optimizados para operaciones masivas</p>
 </div>
 
 ---

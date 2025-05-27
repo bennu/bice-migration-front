@@ -41,8 +41,6 @@ export default function AnimatedDatabase() {
               position: 'absolute',
               width: '50px',
               height: '100%',
-              background:
-                'linear-gradient(90deg, transparent, #667eea, transparent)',
               animation: `${dataFlow} 2s linear`
             }}
           />

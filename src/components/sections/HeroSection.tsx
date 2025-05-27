@@ -13,7 +13,7 @@ import AnimatedDatabase from '@/components/ui/AnimatedDatabase'
 
 export default function HeroSection() {
   return (
-    <Container maxWidth="lg" sx={{ pt: 6, pb: 8 }}>
+    <Container maxWidth="lg" sx={{ pt: 6, pb: 10 }}>
       <Grid container spacing={6} alignItems="center">
         <Grid size={{ xs: 12, md: 6 }}>
           <Fade in timeout={1000}>
@@ -40,31 +40,18 @@ export default function HeroSection() {
                 sx={{
                   fontSize: { xs: '2.5rem', md: '3.5rem' },
                   lineHeight: 1.2,
-                  background: '#1754c9 ',
+                  background: '#1754c9',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   mb: 2
                 }}
               >
-                Migración de Datos Bancarios
-              </Typography>
-
-              <Typography
-                variant="h4"
-                sx={{
-                  color: '#1754c9 ',
-                  fontWeight: 400,
-                  mb: 3,
-                  fontSize: { xs: '1.25rem', md: '1.5rem' }
-                }}
-              >
-                Solución Empresarial de Alto Rendimiento
+                Generador de Scripts de Data Mock
               </Typography>
 
               <Typography
                 variant="body1"
                 color="text.secondary"
-                paragraph
                 sx={{
                   fontSize: '1.1rem',
                   lineHeight: 1.6,
@@ -72,9 +59,9 @@ export default function HeroSection() {
                   color: '#64748b'
                 }}
               >
-                Transfiera y procese grandes volúmenes de datos bancarios con la
-                máxima seguridad, cumplimiento normativo y eficiencia
-                operacional que su institución requiere.
+                Transfiera y procese grandes volúmenes de datos con la máxima
+                seguridad, cumplimiento normativo y eficiencia operacional que
+                su institución requiere.
               </Typography>
             </Box>
           </Fade>
