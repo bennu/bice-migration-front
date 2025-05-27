@@ -11,41 +11,6 @@ import FeaturesSection from '@/components/sections/FeaturesSection'
 import CallToAction from '@/components/sections/CallToAction'
 import Footer from '@/components/layout/footer'
 export default function MigrationLandingPage() {
-  const [formData, setFormData] = useState({
-    fundCounter: 5,
-    operationsMax: 30,
-    operationDetailsMax: 8
-  })
-  const [loading, setLoading] = useState(false)
-  const [result, setResult] = useState(null)
-
-  useEffect(() => {
-    const interval = setInterval(() => {}, 3000)
-    return () => clearInterval(interval)
-  }, [])
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    // Simulación de resultado
-    setTimeout(() => {
-      setResult({
-        uuid: `1`,
-        scriptZip: 'UEsDBAoAAAAAAIdO4kMAAAAAAAAAAAAAAAAJA...'
-      })
-      setLoading(false)
-    }, 2000)
-  }
-
-  // Maneja el cambio de los campos del formulario
-  const handleInputChange =
-    (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      setFormData({
-        ...formData,
-        [field]: parseInt(e.target.value) || 0
-      })
-    }
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -62,13 +27,7 @@ export default function MigrationLandingPage() {
         <Header />
         <Container maxWidth="lg" sx={{ pt: 6, pb: 8 }}>
           <HeroSection />
-          <MigrationForm
-            formData={formData}
-            onInputChange={handleInputChange}
-            onSubmit={handleSubmit}
-            loading={loading}
-            result={result}
-          />
+          <MigrationForm />
           <FeaturesSection />
           <CallToAction />
         </Container>

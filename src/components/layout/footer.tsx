@@ -23,10 +23,7 @@ const Footer = () => {
         py: 4,
         px: 2,
         bgcolor: theme.palette.background.paper,
-        borderTop: `1px solid ${alpha(
-          isDark ? theme.palette.primary.main : colors.bleuDeFrance,
-          isDark ? 0.2 : 0.1
-        )}`
+        borderTop: `1px solid ${alpha(theme.palette.primary.main, isDark ? 0.2 : 0.1)}`,
       }}
     >
       <Container maxWidth="lg">
@@ -51,7 +48,7 @@ const Footer = () => {
                   backgroundColor: 'transparent',
                   borderColor: 'divider',
                   transition: 'all 0.3s ease-in-out',
-                  backdropFilter: 'blur(10px)',
+                  backdropFilter: 'blur(10px)'
                 }}
               >
                 <Container maxWidth="lg">
@@ -135,8 +132,8 @@ const Footer = () => {
               align="justify"
               sx={{ color: theme.palette.text.secondary }}
             >
-              Herramienta simple y eficiente para generar cargas masivas
-              de datos en bases de datos SQL. 
+              Herramienta simple y eficiente para generar cargas masivas de
+              datos en bases de datos SQL.
             </Typography>
             <Typography
               variant="body2"

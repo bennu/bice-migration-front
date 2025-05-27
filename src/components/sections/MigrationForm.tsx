@@ -9,30 +9,24 @@ import {
   alpha,
   Button,
   Paper,
-  LinearProgress,
-  Chip,
   Container,
   keyframes,
-  useTheme
+  useTheme,
+  Alert,
+  Snackbar
 } from '@mui/material'
 import {
   CloudUpload,
   Analytics,
   Code,
   DataObject,
-  TrendingUp
+  TrendingUp,
+  Download,
+  Error as ErrorIcon,
+  CheckCircle,
+  Refresh
 } from '@mui/icons-material'
-
-// Animaciones keyframes
-const float = keyframes`
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-`
-
-const glow = keyframes`
-  0%, 100% { box-shadow: 0 0 5px rgba(102, 126, 234, 0.5); }
-  50% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.8), 0 0 30px rgba(102, 126, 234, 0.4); }
-`
+import { useMigration } from '@/hooks/useMigration'
 
 const pulse = keyframes`
   0% { transform: scale(1); }
@@ -42,27 +36,21 @@ const pulse = keyframes`
 
 export default function MigrationForm() {
   const theme = useTheme()
-  const [formData, setFormData] = useState({
-    fundCounter: 5,
-    operationsMax: 30,
-    operationDetailsMax: 8
-  })
-  const [loading, setLoading] = useState(false)
-  const [focusedField, setFocusedField] = useState(null)
-  const [hoveredCard, setHoveredCard] = useState(null)
+  const {
+    formData,
+    loading,
+    result,
+    error,
+    showNotification,
+    setShowNotification,
+    handleSubmit,
+    handleInputChange,
+    resetForm,
+    downloadScript
+  } = useMigration()
 
-  const handleInputChange = (field) => (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: e.target.value
-    }))
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setTimeout(() => setLoading(false), 3000)
-  }
+  const [focusedField, setFocusedField] = useState<string | null>(null)
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null)
 
   const fields = [
     {
@@ -121,9 +109,7 @@ export default function MigrationForm() {
                 sx={{
                   p: 2,
                   borderRadius: '50%',
-                  background:
-                    'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center'
@@ -135,9 +121,7 @@ export default function MigrationForm() {
                 variant="h3"
                 fontWeight="bold"
                 sx={{
-                  background:
-                    'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text'
@@ -199,8 +183,7 @@ export default function MigrationForm() {
                               background: field.bgColor,
                               border: `1px solid ${alpha(field.color, 0.3)}`,
                               backdropFilter: 'blur(10px)',
-                              transition:
-                                'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                               position: 'relative',
                               overflow: 'hidden',
                               transform: isHovered
@@ -226,12 +209,7 @@ export default function MigrationForm() {
                             }}
                           >
                             {/* Header del campo */}
-                            <Box
-                              display="flex"
-                              alignItems="center"
-                              gap={2}
-                              mb={3}
-                            >
+                            <Box display="flex" alignItems="center" gap={2} mb={3}>
                               <Box
                                 sx={{
                                   p: 1.5,
@@ -270,11 +248,12 @@ export default function MigrationForm() {
                               <TextField
                                 fullWidth
                                 type="number"
-                                value={formData[field.key]}
-                                onChange={handleInputChange(field.key)}
+                                value={formData[field.key as keyof typeof formData]}
+                                onChange={handleInputChange(field.key as keyof typeof formData)}
                                 onFocus={() => setFocusedField(field.key)}
                                 onBlur={() => setFocusedField(null)}
                                 placeholder="0"
+                                inputProps={{ min: 0, max: field.maxValue }}
                                 sx={{
                                   '& .MuiOutlinedInput-root': {
                                     backgroundColor: 'rgba(0,0,0,0.3)',
@@ -291,10 +270,7 @@ export default function MigrationForm() {
                                     '&.Mui-focused fieldset': {
                                       borderColor: field.color,
                                       borderWidth: 2,
-                                      boxShadow: `0 0 10px ${alpha(
-                                        field.color,
-                                        0.5
-                                      )}`
+                                      boxShadow: `0 0 10px ${alpha(field.color, 0.5)}`
                                     }
                                   },
                                   '& .MuiOutlinedInput-input': {
@@ -328,8 +304,8 @@ export default function MigrationForm() {
                   })}
                 </Grid>
 
-                {/* Botón de envío mejorado */}
-                <Box display="flex" justifyContent="center">
+                {/* Botones de acción */}
+                <Box display="flex" justifyContent="center" gap={3}>
                   <Button
                     type="submit"
                     size="large"
@@ -385,6 +361,30 @@ export default function MigrationForm() {
                       'Generar Script'
                     )}
                   </Button>
+
+                  {(result || error) && (
+                    <Button
+                      onClick={resetForm}
+                      size="large"
+                      startIcon={<Refresh />}
+                      sx={{
+                        px: 4,
+                        py: 2,
+                        borderRadius: 4,
+                        background: 'rgba(255,255,255,0.1)',
+                        color: 'white',
+                        fontWeight: 'bold',
+                        textTransform: 'none',
+                        border: '1px solid rgba(255,255,255,0.2)',
+                        '&:hover': {
+                          background: 'rgba(255,255,255,0.2)',
+                          transform: 'translateY(-2px)'
+                        }
+                      }}
+                    >
+                      Resetear
+                    </Button>
+                  )}
                 </Box>
               </Box>
 
@@ -413,11 +413,7 @@ export default function MigrationForm() {
                         }}
                       />
                       <Box>
-                        <Typography
-                          variant="h6"
-                          color="white"
-                          fontWeight="bold"
-                        >
+                        <Typography variant="h6" color="white" fontWeight="bold">
                           Generando script de migración...
                         </Typography>
                         <Typography
@@ -431,6 +427,56 @@ export default function MigrationForm() {
                   </Paper>
                 </Fade>
               )}
+
+              {/* Resultado exitoso */}
+              {result && (
+                <Fade in>
+                  <Paper
+                    sx={{
+                      mt: 4,
+                      p: 4,
+                      borderRadius: 4,
+                      background: 'rgba(16, 185, 129, 0.1)',
+                      border: '1px solid rgba(16, 185, 129, 0.3)',
+                      backdropFilter: 'blur(10px)'
+                    }}
+                  >
+                    <Box display="flex" alignItems="center" gap={3} mb={3}>
+                      <CheckCircle sx={{ color: '#10b981', fontSize: 40 }} />
+                      <Box>
+                        <Typography variant="h6" color="white" fontWeight="bold">
+                          ¡Script generado exitosamente!
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          color="rgba(255,255,255,0.6)"
+                        >
+                          UUID: {result.uuid}
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <Button
+                      fullWidth
+                      onClick={downloadScript}
+                      startIcon={<Download />}
+                      sx={{
+                        py: 2,
+                        borderRadius: 3,
+                        background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                        color: 'white',
+                        fontWeight: 'bold',
+                        textTransform: 'none',
+                        '&:hover': {
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 8px 25px rgba(16, 185, 129, 0.4)'
+                        }
+                      }}
+                    >
+                      Descargar Script ZIP
+                    </Button>
+                  </Paper>
+                </Fade>
+              )}
             </CardContent>
           </Paper>
         </Fade>
@@ -438,7 +484,7 @@ export default function MigrationForm() {
         {/* Preview de estadísticas */}
         <Fade in timeout={2000}>
           <Grid container spacing={3} mt={4}>
-            {fields.map((field, index) => (
+            {fields.map((field) => (
               <Grid size={{ xs: 12, md: 4 }} key={field.key}>
                 <Paper
                   sx={{
@@ -473,7 +519,7 @@ export default function MigrationForm() {
                         backgroundClip: 'text'
                       }}
                     >
-                      {formData[field.key]}
+                      {formData[field.key as keyof typeof formData]}
                     </Typography>
                   </Box>
                 </Paper>
@@ -481,6 +527,45 @@ export default function MigrationForm() {
             ))}
           </Grid>
         </Fade>
+
+        {/* Snackbar para notificaciones */}
+        <Snackbar
+          open={showNotification}
+          autoHideDuration={6000}
+          onClose={() => setShowNotification(false)}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        >
+          <Alert
+            onClose={() => setShowNotification(false)}
+            severity={error ? 'error' : 'success'}
+            sx={{ width: '100%' }}
+          >
+            {error || 'Script generado exitosamente'}
+          </Alert>
+        </Snackbar>
+
+        {/* Error alert */}
+        {error && (
+          <Fade in>
+            <Box mt={4}>
+              <Alert
+                severity="error"
+                sx={{
+                  backgroundColor: 'rgba(244, 67, 54, 0.1)',
+                  border: '1px solid rgba(244, 67, 54, 0.3)',
+                  '& .MuiAlert-icon': {
+                    color: '#f44336'
+                  }
+                }}
+                icon={<ErrorIcon />}
+              >
+                <Typography variant="body1" color="white">
+                  {error}
+                </Typography>
+              </Alert>
+            </Box>
+          </Fade>
+        )}
       </Container>
     </Box>
   )
