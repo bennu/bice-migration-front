@@ -19,19 +19,19 @@ const commonsEnvs = {
 const envs: EnvsType = {
   local: {
     ...commonsEnvs,
-    BASE_URL_MIGRATION: 'http://localhost:8080/'
+    BASE_URL_MIGRATION: 'http://localhost:8080'
   },
   dev: {
     ...commonsEnvs,
-    BASE_URL_MIGRATION: 'https://api-bice.bennu.cl/'
+    BASE_URL_MIGRATION: 'https://api-bice.bennu.cl'
   },
   stg: {
     ...commonsEnvs,
-    BASE_URL_MIGRATION: 'https://api-bice.bennu.cl/'
+    BASE_URL_MIGRATION: 'https://api-bice.bennu.cl'
   },
   pro: {
     ...commonsEnvs,
-    BASE_URL_MIGRATION: 'https://api-bice.bennu.cl/'
+    BASE_URL_MIGRATION: 'https://api-bice.bennu.cl'
   }
 }
 
@@ -45,7 +45,7 @@ const getStage = (): StageType => {
 }
 
 const nextConfig: NextConfig = {
-  output: 'standalone',
+  output: 'export',
   env: envs[getStage()],
   typescript: {
     ignoreBuildErrors: true
