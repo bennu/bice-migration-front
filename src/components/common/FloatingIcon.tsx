@@ -1,4 +1,5 @@
 // components/common/FloatingIcon.tsx
+'use client'
 import { styled } from "@mui/material/styles";
 import { Box } from "@mui/material";
 import { float } from "@/styles/animations";
