@@ -10,6 +10,7 @@ import MigrationForm from '@/components/sections/MigrationForm'
 import FeaturesSection from '@/components/sections/FeaturesSection'
 import CallToAction from '@/components/sections/CallToAction'
 import Footer from '@/components/layout/footer'
+import { FloatingPasswordButton } from '@/components/common/FloatingPasswordButton'
 export default function MigrationLandingPage() {
   return (
     <ThemeProvider theme={theme}>
@@ -32,6 +33,7 @@ export default function MigrationLandingPage() {
           <CallToAction />
         </Container>
         <Footer />
+        <FloatingPasswordButton />
       </Box>
     </ThemeProvider>
   )
