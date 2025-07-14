@@ -115,7 +115,7 @@ export const PasswordGenerator: React.FC<PasswordGeneratorProps> = ({
 }) => {
   const theme = useTheme()
   const [code, setCode] = useState('')
-  const [length] = useState(6)
+  const [length] = useState(4)
   const [timeLeft, setTimeLeft] = useState(60)
   const [copyAlert, setCopyAlert] = useState(false)
 
