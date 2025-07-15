@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Fab, useTheme, alpha, Tooltip } from '@mui/material'
+import { Fab, alpha, Tooltip } from '@mui/material'
 import { Security as SecurityIcon } from '@mui/icons-material'
 import { styled } from '@mui/material/styles'
 import { PasswordGenerator } from './PasswordGenerator'
