@@ -91,7 +91,6 @@ const GlassFloatingButton = styled(Fab)(({ theme }) => ({
 
 
 export const FloatingPasswordButton: React.FC = () => {
-  const theme = useTheme()
   const [isGeneratorOpen, setIsGeneratorOpen] = useState(false)
 
   const handleClick = () => {
