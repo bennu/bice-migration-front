@@ -1,10 +1,10 @@
 // app/providers.tsx
-"use client";
+'use client'
 
-import { ReactNode } from "react";
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import { theme } from "@/styles/theme";
+import { ReactNode } from 'react'
+import { ThemeProvider } from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline'
+import { theme } from '@/styles/theme'
 
 export default function Providers({ children }: { children: ReactNode }) {
   return (
@@ -12,5 +12,5 @@ export default function Providers({ children }: { children: ReactNode }) {
       <CssBaseline />
       {children}
     </ThemeProvider>
-  );
+  )
 }
