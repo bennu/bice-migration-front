@@ -119,10 +119,16 @@ export const PasswordGenerator: React.FC<PasswordGeneratorProps> = ({
   const [timeLeft, setTimeLeft] = useState(60)
   const [copyAlert, setCopyAlert] = useState(false)
 
+  const calculateTimeLeft = () => {
+    const now = new Date()
+    const seconds = now.getSeconds()
+    return 60 - seconds
+  }
+
   const handleGenerate = useCallback(() => {
     const newCode = generateMinutelyTwoFactor(length)
     setCode(newCode)
-    setTimeLeft(60)
+    setTimeLeft(calculateTimeLeft())
   }, [length])
 
   const handleCopy = useCallback(async () => {
@@ -143,15 +149,20 @@ export const PasswordGenerator: React.FC<PasswordGeneratorProps> = ({
   }, [open, handleGenerate])
 
   React.useEffect(() => {
-    if (timeLeft > 0 && open) {
-      const timer = setTimeout(() => {
-        setTimeLeft(timeLeft - 1)
+    if (open) {
+      const timer = setInterval(() => {
+        const newTimeLeft = calculateTimeLeft()
+        setTimeLeft(newTimeLeft)
+        
+        // Si llegamos a 60 segundos (nuevo minuto), regenerar el código
+        if (newTimeLeft === 60) {
+          handleGenerate()
+        }
       }, 1000)
-      return () => clearTimeout(timer)
-    } else if (timeLeft === 0 && open) {
-      handleGenerate()
+      
+      return () => clearInterval(timer)
     }
-  }, [timeLeft, open, handleGenerate])
+  }, [open, handleGenerate])
 
   const getTimerColor = () => {
     if (timeLeft > 30) return theme.palette.primary.main // #6366f1 (índigo)
