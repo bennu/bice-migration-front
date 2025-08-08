@@ -108,7 +108,6 @@ const ModernButton = styled(Button)(({ theme }) => ({
   }
 }))
 
-
 export const PasswordGenerator: React.FC<PasswordGeneratorProps> = ({
   open,
   onClose
@@ -153,13 +152,13 @@ export const PasswordGenerator: React.FC<PasswordGeneratorProps> = ({
       const timer = setInterval(() => {
         const newTimeLeft = calculateTimeLeft()
         setTimeLeft(newTimeLeft)
-        
+
         // Si llegamos a 60 segundos (nuevo minuto), regenerar el código
         if (newTimeLeft === 60) {
           handleGenerate()
         }
       }, 1000)
-      
+
       return () => clearInterval(timer)
     }
   }, [open, handleGenerate])
@@ -385,20 +384,23 @@ export const PasswordGenerator: React.FC<PasswordGeneratorProps> = ({
                 >
                   {code}
                 </Typography>
-                
-                <Box sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: 1,
-                  px: 2,
-                  py: 0.5,
-                  borderRadius: '12px',
-                  backgroundColor: theme.palette.mode === 'dark'
-                    ? 'rgba(255, 255, 255, 0.06)'
-                    : 'rgba(0, 0, 0, 0.04)',
-                  width: 'auto',
-                }}>
+
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 1,
+                    px: 2,
+                    py: 0.5,
+                    borderRadius: '12px',
+                    backgroundColor:
+                      theme.palette.mode === 'dark'
+                        ? 'rgba(255, 255, 255, 0.06)'
+                        : 'rgba(0, 0, 0, 0.04)',
+                    width: 'auto'
+                  }}
+                >
                   <Box
                     sx={{
                       width: 6,
@@ -409,7 +411,7 @@ export const PasswordGenerator: React.FC<PasswordGeneratorProps> = ({
                       '@keyframes pulse': {
                         '0%': { opacity: 1, transform: 'scale(1)' },
                         '50%': { opacity: 0.7, transform: 'scale(1.2)' },
-                        '100%': { opacity: 1, transform: 'scale(1)' },
+                        '100%': { opacity: 1, transform: 'scale(1)' }
                       }
                     }}
                   />
@@ -456,26 +458,6 @@ export const PasswordGenerator: React.FC<PasswordGeneratorProps> = ({
                 }}
               >
                 Copiar
-              </ModernButton>
-              <ModernButton
-                onClick={handleGenerate}
-                startIcon={<RefreshIcon />}
-                fullWidth
-                sx={{
-                  flex: 1,
-                  '&:hover': {
-                    '& .MuiSvgIcon-root': {
-                      color: theme.palette.secondary.main
-                    },
-                    borderColor: alpha(theme.palette.secondary.main, 0.3),
-                    backgroundColor:
-                      theme.palette.mode === 'dark'
-                        ? alpha(theme.palette.secondary.main, 0.1)
-                        : alpha(theme.palette.secondary.main, 0.05)
-                  }
-                }}
-              >
-                Re generar
               </ModernButton>
             </Box>
           </Box>
