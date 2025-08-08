@@ -16,8 +16,7 @@ import {
 } from '@mui/material'
 import {
   Close as CloseIcon,
-  ContentCopy as CopyIcon,
-  Refresh as RefreshIcon
+  ContentCopy as CopyIcon
 } from '@mui/icons-material'
 import { styled } from '@mui/material/styles'
 import { generateMinutelyTwoFactor } from '@bennu-cl/commons-js'
